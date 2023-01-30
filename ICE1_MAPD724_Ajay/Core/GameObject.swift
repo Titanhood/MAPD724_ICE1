@@ -1,19 +1,11 @@
-//
-//
-// GameObject.swift
-// ICE1_MAPD724_Ajay
-// titanhood
-// ICE1_MAPD724_Ajay
-//
-// Created by Ajay Shrivastav on 2023-01-22 on 1:44 PM.
-
 import GameplayKit
 import SpriteKit
 
 class GameObject : SKSpriteNode, GameProtocol
 {
-    // public instance members
-    var horizontalSpeed: CGFloat?
+    
+    //instance members
+    var horizonalSpeed: CGFloat?
     var verticalSpeed: CGFloat?
     var width: CGFloat?
     var height: CGFloat?
@@ -24,14 +16,14 @@ class GameObject : SKSpriteNode, GameProtocol
     var randomSource: GKARC4RandomSource?
     var randomDist: GKRandomDistribution?
     
-    // Initializer
+    //initializer
     init(imageString: String, initialScale: CGFloat)
     {
-        // initialize the game object with an image
         let texture = SKTexture(imageNamed: imageString)
         let color = UIColor.clear
         super.init(texture: texture, color: color, size: texture.size())
         
+        //configuration
         scale = initialScale
         setScale(scale!)
         width = texture.size().width * scale!
@@ -47,22 +39,24 @@ class GameObject : SKSpriteNode, GameProtocol
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func CheckBounds() {
+    //GameProtocol Functions
+    func Start()
+    {
         
     }
     
-    func Reset() {
+    func Update()
+    {
         
     }
     
-    func Start() {
+    func CheckBounds()
+    {
         
     }
     
-    func Update() {
+    func Reset()
+    {
         
     }
-    
-    
 }

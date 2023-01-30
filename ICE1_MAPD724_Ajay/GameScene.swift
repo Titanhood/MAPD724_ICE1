@@ -1,11 +1,11 @@
 //
 //
 // GameScene.swift
-// ICE1_MAPD724_Ajay
+// ICE2_MAPD724_Ajay
 // titanhood
-// ICE1_MAPD724_Ajay
+// ICE2_MAPD724_Ajay
 //
-// Created by Ajay Shrivastav on 2023-01-22 on 1:39 PM.
+// Created by Ajay Shrivastav on 2023-01-29 on 2:53 PM.
 
 
 import UIKit
@@ -13,50 +13,64 @@ import AVFoundation
 import SpriteKit
 import GameplayKit
 
-let screenSize = UIScreen.main.bounds
+var screenSize = UIScreen.main.bounds
 var screenWidth: CGFloat?
 var screenHeight: CGFloat?
 
 class GameScene: SKScene {
     
-    var ocean: Ocean?
-    var ocean2 : Ocean?
+    var ocean1: Ocean?
+    var ocean2: Ocean?
     var plane: Plane?
+    var island: Island?
+    var clouds: [Cloud] = []
     
-    override func didMove(to view: SKView) {
+override func sceneDidLoad()
+    {
         screenWidth = frame.width
         screenHeight = frame.height
+        name = "FIRST GAME"
         
-        name = "GAME"
+        //add ocean1 to the game scene
+        ocean1 = Ocean()
+        ocean1?.Reset()
+        addChild(ocean1!)
         
-        // add ocean to the scene
-        ocean = Ocean()
-        ocean?.Reset()
-        addChild(ocean!)
-        
-        // Add the second ocean to the scene
+        //add ocean2 to the game scene
         ocean2 = Ocean()
-        ocean2?.position.y = -773
+        ocean2?.position.y = -627
         addChild(ocean2!)
         
-        // add plane to the scene
+        //add plane to the Scene
         plane = Plane()
-        plane?.position = CGPoint(x: 0, y: -495)
         addChild(plane!)
         
+        //add island to the scene
+        island = Island()
+        addChild(island!)
+        
+        //add 3 clouds to the scene
+        for _ in 0...2
+        {
+            let cloud: Cloud = Cloud()
+            clouds.append(cloud)
+            addChild(cloud)
+        }
     }
     
     
-    func touchDown(atPoint pos : CGPoint) {
-        plane?.TouchMove(newPos: CGPoint(x: pos.x, y: -495))
+    func touchDown(atPoint pos : CGPoint)
+    {
+        plane?.TouchMove(newPos: CGPoint(x: pos.x, y: -640))
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        plane?.TouchMove(newPos: CGPoint(x: pos.x, y: -495))
+        plane?.TouchMove(newPos: CGPoint(x: pos.x, y: -640))
+        
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        plane?.TouchMove(newPos: CGPoint(x: pos.x, y: -495))
+        plane?.TouchMove(newPos: CGPoint(x: pos.x, y: -640))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -77,9 +91,17 @@ class GameScene: SKScene {
     }
     
     
-    override func update(_ currentTime: TimeInterval) {
-        ocean?.Update()
+    override func update(_ currentTime: TimeInterval)
+    {
+        ocean1?.Update()
         ocean2?.Update()
         plane?.Update()
+        island?.Update()
+        
+        //update each cloud in clouds
+        for cloud in clouds
+        {
+            cloud.Update()
+        }
     }
 }
